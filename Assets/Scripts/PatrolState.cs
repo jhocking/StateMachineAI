@@ -7,24 +7,19 @@ using BasicAI;
 
 public class PatrolState : BaseState
 {
-	public enum PatrolType {
-		Loop,
-		PingPong
-	}
-
-	private GameObject player;
+	private Enemy actor;
 	private NavMeshAgent agent;
 
 	private Transform[] waypoints;
 	private float targetThreshold;
 	private int targetWaypointIndex;
 
-	public PatrolState(GameObject actor, GameObject player, Transform[] waypoints, float targetThreshold) {
+	public PatrolState(Enemy actor, Transform[] waypoints, float targetThreshold) {
+		this.actor = actor;
+		agent = actor.GetComponent<NavMeshAgent>();
+
 		this.waypoints = waypoints;
 		this.targetThreshold = targetThreshold;
-
-		this.player = player;
-		agent = actor.GetComponent<NavMeshAgent>();
 	}
 
 	public override void OnEnter() {

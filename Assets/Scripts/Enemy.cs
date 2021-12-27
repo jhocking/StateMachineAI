@@ -14,11 +14,13 @@ public class Enemy : BaseWaypointAI
     // Start is called before the first frame update
     protected override void Start()
     {
-        currentState = new IdleState(this.gameObject, player, waitTime);
+        currentState = new IdleState(this, waitTime);
 
         availableStates = new Dictionary<Type, BaseState>() {
             { typeof(IdleState), currentState},
-            { typeof(PatrolState), new PatrolState(this.gameObject, player, waypoints, targetThreshold)}
+            { typeof(PatrolState), new PatrolState(this, waypoints, targetThreshold)}
         };
     }
+
+    // TODO public methods to check player visibility + position
 }

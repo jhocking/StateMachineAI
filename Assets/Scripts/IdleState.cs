@@ -6,17 +6,17 @@ using UnityEngine.AI;
 using BasicAI;
 
 public class IdleState : BaseState {
-	private GameObject player;
+	private Enemy actor;
 	private NavMeshAgent agent;
 
 	private DateTime startTime;
 	private float waitTime;
 
-	public IdleState(GameObject actor, GameObject player, float waitTime) {
-		this.waitTime = waitTime;
-
-		this.player = player;
+	public IdleState(Enemy actor, float waitTime) {
+		this.actor = actor;
 		agent = actor.GetComponent<NavMeshAgent>();
+
+		this.waitTime = waitTime;
 	}
 
 	public override void OnEnter() {
