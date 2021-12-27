@@ -12,7 +12,7 @@ public class Enemy : BaseWaypointAI
         currentState = new IdleState();
         availableStates = new Dictionary<Type, BaseState>() {
             { typeof(IdleState), currentState},
-            { typeof(PatrolState), new PatrolState(waypoints)}
+            { typeof(PatrolState), new PatrolState(this.gameObject, waypoints)}
         };
     }
 }

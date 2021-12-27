@@ -31,20 +31,20 @@ namespace BasicAI {
 		protected Dictionary<Type, BaseState> availableStates;
 
 		protected BaseState currentState;
-		public string CurrentState => currentState.GetType().Name;
+		public string CurrentState => currentState?.GetType().Name;
 
 		// Start is called before the first frame update
 		protected virtual void Start() {
 			// TODO override this method; do NOT call base.Start()
 			// then initialize the dictionary of states
-			// (including creating a state with the waypoints)
+			// (including creating a state with waypoints)
 			// and declare the current state
 		}
 
 		// Update is called once per frame
 		protected virtual void Update() {
 			if (currentState == null) {
-				Debug.LogError($"Current state not initialized for {this.name}");
+				Debug.LogError($"State machine not initialized for {this.name}");
 				return;
 			}
 			var stateType = currentState.Tick();
@@ -52,7 +52,7 @@ namespace BasicAI {
 			if (stateType != null && stateType != currentState.GetType()) {
 				availableStates.TryGetValue(stateType, out var newState);
 				if (newState == null) {
-					Debug.LogError($"No available state for {stateType.Name}");
+					Debug.LogError($"{this.name} has no available state for {stateType.Name}");
 				} else {
 					currentState.OnExit();
 					currentState = newState;

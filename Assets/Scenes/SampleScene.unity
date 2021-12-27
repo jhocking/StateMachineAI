@@ -813,10 +813,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1757821042}
+  - component: {fileID: 1757821043}
   - component: {fileID: 1757821041}
   - component: {fileID: 1757821040}
   - component: {fileID: 1757821039}
-  - component: {fileID: 1757821043}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -912,6 +912,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec6c61a012d94fec9b5e304e98092e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 323135084}
+  - {fileID: 100663175}
+  - {fileID: 691249385}
 --- !u!1 &1952155771
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,10 +925,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1952155775}
+  - component: {fileID: 1952155776}
   - component: {fileID: 1952155774}
   - component: {fileID: 1952155773}
   - component: {fileID: 1952155772}
-  - component: {fileID: 1952155776}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1020,6 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4352c18ead8947b68f7a13992c7ee58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 1757821043}
 --- !u!1 &2051875576
 GameObject:
   m_ObjectHideFlags: 0
