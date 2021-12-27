@@ -30,6 +30,7 @@ namespace BasicAI {
 		[SerializeField] protected Transform[] waypoints;
 
 		public float targetThreshold = .5f;
+		public bool showRuntimeDebug = false;
 
 		protected Dictionary<Type, BaseState> availableStates;
 
@@ -61,6 +62,12 @@ namespace BasicAI {
 					currentState = newState;
 					currentState.OnEnter();
 				}
+			}
+		}
+
+		protected void OnGUI() {
+			if (showRuntimeDebug) {
+				GUI.Box(new Rect(10, 10, 125, 25), CurrentState);
 			}
 		}
 

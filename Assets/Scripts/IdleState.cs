@@ -30,8 +30,4 @@ public class IdleState : BaseState {
 		}
 		return null;
 	}
-
-	public override void OnExit() {
-		Debug.Log("Left Idle");
-	}
 }
