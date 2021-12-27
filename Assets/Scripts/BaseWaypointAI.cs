@@ -49,7 +49,7 @@ namespace BasicAI {
 			}
 			var stateType = currentState.Tick();
 
-			if (stateType != currentState.GetType()) {
+			if (stateType != null && stateType != currentState.GetType()) {
 				availableStates.TryGetValue(stateType, out var newState);
 				if (newState == null) {
 					Debug.LogError($"No available state for {stateType.Name}");
