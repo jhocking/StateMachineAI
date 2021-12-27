@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,14 +26,39 @@ improved behavior https://www.youtube.com/watch?v=6BrZryMz-ac
 namespace BasicAI {
 
 	public abstract class BaseWaypointAI : MonoBehaviour {
-		// Start is called before the first frame update
-		void Start() {
+		[SerializeField] protected Transform[] waypoints;
 
+		protected Dictionary<Type, BaseState> availableStates;
+
+		protected BaseState currentState;
+		public string CurrentState => currentState.GetType().Name;
+
+		// Start is called before the first frame update
+		protected virtual void Start() {
+			// TODO override this method; do NOT call base.Start()
+			// then initialize the dictionary of states
+			// (including creating a state with the waypoints)
+			// and declare the current state
 		}
 
 		// Update is called once per frame
-		void Update() {
+		protected virtual void Update() {
+			if (currentState == null) {
+				Debug.LogError($"Current state not initialized for {this.name}");
+				return;
+			}
+			var stateType = currentState.Tick();
 
+			if (stateType != currentState.GetType()) {
+				availableStates.TryGetValue(stateType, out var newState);
+				if (newState == null) {
+					Debug.LogError($"No available state for {stateType.Name}");
+				} else {
+					currentState.OnExit();
+					currentState = newState;
+					currentState.OnEnter();
+				}
+			}
 		}
 	}
 
