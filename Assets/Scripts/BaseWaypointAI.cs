@@ -14,13 +14,13 @@ navmesh back to path, with obstacle avoidance at all times
 
 resources for first pass:
 18:40 state machine https://www.youtube.com/watch?v=YdERlPfwUb0
-sensor toolkit https://www.youtube.com/watch?v=37z6hTHuJRI
 https://www.raywenderlich.com/16977649-pathfinding-with-navmesh-getting-started
 simply do waypoints like FlockEmitter in flock-demo
 
 later improvements:
 waypoint editor https://www.youtube.com/watch?v=MXCZ-n5VyJc
 improved behavior https://www.youtube.com/watch?v=6BrZryMz-ac
+sensor toolkit https://www.youtube.com/watch?v=37z6hTHuJRI
 */
 
 namespace BasicAI {
