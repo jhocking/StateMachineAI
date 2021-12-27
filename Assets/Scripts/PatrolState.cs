@@ -16,17 +16,36 @@ public class PatrolState : BaseState
 	private NavMeshAgent agent;
 
 	private Transform[] waypoints;
-	private PatrolType behavior;
+	private float targetThreshold;
+	private int targetWaypointIndex;
 
-	public PatrolState(GameObject actor, GameObject player, Transform[] waypoints, PatrolType behavior = PatrolType.PingPong) {
+	public PatrolState(GameObject actor, GameObject player, Transform[] waypoints, float targetThreshold) {
 		this.waypoints = waypoints;
-		this.behavior = behavior;
+		this.targetThreshold = targetThreshold;
 
 		this.player = player;
 		agent = actor.GetComponent<NavMeshAgent>();
 	}
 
-    public override Type Tick() {
+	public override void OnEnter() {
+		agent.isStopped = false;
+
+		var targetPos = waypoints[targetWaypointIndex].position;
+		agent.SetDestination(targetPos);
+	}
+
+	public override Type Tick() {
+		var targetDist = Vector3.Distance(agent.transform.position, waypoints[targetWaypointIndex].position);
+		if (targetDist < targetThreshold) {
+			targetWaypointIndex++;
+			if (targetWaypointIndex >= waypoints.Length) {
+				targetWaypointIndex = 0;
+			}
+
+			var targetPos = waypoints[targetWaypointIndex].position;
+			agent.SetDestination(targetPos);
+		}
+
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			return typeof(IdleState);
 		}

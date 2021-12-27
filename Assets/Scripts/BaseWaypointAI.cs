@@ -29,6 +29,8 @@ namespace BasicAI {
 	public abstract class BaseWaypointAI : MonoBehaviour {
 		[SerializeField] protected Transform[] waypoints;
 
+		public float targetThreshold = .5f;
+
 		protected Dictionary<Type, BaseState> availableStates;
 
 		protected BaseState currentState;

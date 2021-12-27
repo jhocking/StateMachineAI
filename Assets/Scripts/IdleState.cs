@@ -2,11 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using BasicAI;
 
 public class IdleState : BaseState {
+	private GameObject player;
+	private NavMeshAgent agent;
+
+	public IdleState(GameObject actor, GameObject player) {
+		this.player = player;
+		agent = actor.GetComponent<NavMeshAgent>();
+	}
+
 	public override void OnEnter() {
-		Debug.Log("Entered idle");
+		agent.isStopped = true;
 	}
 
 	public override Type Tick() {
