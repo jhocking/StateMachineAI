@@ -7,6 +7,8 @@ using BasicAI;
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class Enemy : BaseWaypointAI
 {
+    [SerializeField] GameObject player;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -14,7 +16,7 @@ public class Enemy : BaseWaypointAI
 
         availableStates = new Dictionary<Type, BaseState>() {
             { typeof(IdleState), currentState},
-            { typeof(PatrolState), new PatrolState(this.gameObject, waypoints)}
+            { typeof(PatrolState), new PatrolState(this.gameObject, player, waypoints)}
         };
     }
 }

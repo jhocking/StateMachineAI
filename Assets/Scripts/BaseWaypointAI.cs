@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 /*
 refer to zelda3 for how enemies behave: 
@@ -57,6 +58,19 @@ namespace BasicAI {
 					currentState.OnExit();
 					currentState = newState;
 					currentState.OnEnter();
+				}
+			}
+		}
+
+		protected void OnDrawGizmos() {
+			if (Selection.activeGameObject == this.gameObject) {
+				Gizmos.color = Color.red;
+				for (int i = 0; i < waypoints.Length; i++) {
+					Vector3 pos = waypoints[i].position;
+					if (i > 0) {
+						Vector3 prev = waypoints[i - 1].position;
+						Gizmos.DrawLine(prev, pos);
+					}
 				}
 			}
 		}

@@ -12,14 +12,17 @@ public class PatrolState : BaseState
 		PingPong
 	}
 
+	private GameObject player;
 	private NavMeshAgent agent;
+
 	private Transform[] waypoints;
 	private PatrolType behavior;
 
-	public PatrolState(GameObject actor, Transform[] waypoints, PatrolType behavior = PatrolType.PingPong) {
+	public PatrolState(GameObject actor, GameObject player, Transform[] waypoints, PatrolType behavior = PatrolType.PingPong) {
 		this.waypoints = waypoints;
 		this.behavior = behavior;
 
+		this.player = player;
 		agent = actor.GetComponent<NavMeshAgent>();
 	}
 
