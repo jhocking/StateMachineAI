@@ -29,6 +29,9 @@ public class PatrolState : BaseState
 
 	public override void OnEnter() {
 		agent.isStopped = false;
+		agent.speed = 4;
+		agent.angularSpeed = 360;
+		agent.acceleration = 8;
 
 		var targetPos = waypoints[targetWaypointIndex].position;
 		agent.SetDestination(targetPos);
