@@ -9,9 +9,10 @@ public class Enemy : BaseWaypointAI
 {
     [SerializeField] GameObject player;
 
-    public float idleWaitTime = 2;
-    public float visionWaitTime = .5f;
-    public float visionRadius = .25f;
+    public float idleWaitTime = 2; // how long to pause in the idle state
+    public float visionWaitTime = .5f; // how long between vision updates
+    public float visionDistance = 50; // how far away the player is visible
+    public float visionRadius = .25f; // width of the visibility spherecast
     public float patrolSpeed = 4;
     public float chaceSpeed = 8;
 
@@ -46,22 +47,26 @@ public class Enemy : BaseWaypointAI
             CanSeePlayer = false;
             var playerOffset = player.transform.position - this.transform.position;
 
-            // first use the dot product to see if the player is within the field of view
-            var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
-            if (dot >= facingDotThreshold) {
+            // first check if the player is close enough
+            if (playerOffset.magnitude < visionDistance) {
 
-                // only then do a raycast for line of sight
-                if (Physics.SphereCast(transform.position, visionRadius, playerOffset, out var hit)) {
-                    if (hit.transform.gameObject == player) {
-                        CanSeePlayer = true;
-                        SeenPlayerPosition = player.transform.position;
+                // then use the dot product to see if the player is within the field of view
+                var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
+                if (dot >= facingDotThreshold) {
+
+                    // only then do a raycast for line of sight
+                    if (Physics.SphereCast(transform.position, visionRadius, playerOffset, out var hit)) {
+                        if (hit.transform.gameObject == player) {
+                            CanSeePlayer = true;
+                            SeenPlayerPosition = player.transform.position;
+                        }
                     }
-				}
 
-                if (showRuntimeDebug) {
-                    var tint = CanSeePlayer ? Color.blue : Color.yellow;
-                    Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
-                    // TODO instead of 'transform.forward * 1000' do 'transform.forward * hit.distance'
+                    if (showRuntimeDebug) {
+                        var tint = CanSeePlayer ? Color.blue : Color.yellow;
+                        Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
+                        // TODO instead of 'transform.forward * 1000' do 'transform.forward * hit.distance'
+                    }
                 }
             }
 

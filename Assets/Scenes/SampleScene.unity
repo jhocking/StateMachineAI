@@ -763,6 +763,8 @@ MonoBehaviour:
   player: {fileID: 1952155771}
   idleWaitTime: 2
   visionWaitTime: 0.5
+  visionDistance: 50
+  visionRadius: 0.25
   patrolSpeed: 4
   chaceSpeed: 8
   facingDotThreshold: 0.35
