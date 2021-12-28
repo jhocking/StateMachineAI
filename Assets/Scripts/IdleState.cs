@@ -22,6 +22,8 @@ public class IdleState : BaseState {
 	public override void OnEnter() {
 		startTime = DateTime.UtcNow;
 		agent.isStopped = true;
+
+		// TODO exclamation point or question mark based on CanSeePlayer
 	}
 
 	public override Type Tick() {
