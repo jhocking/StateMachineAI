@@ -765,7 +765,7 @@ MonoBehaviour:
   visionWaitTime: 0.5
   visionRadius: 0.25
   visionDistance: 50
-  detectDistance: 5
+  detectDistance: 10
   patrolSpeed: 4
   chaseSpeed: 8
   facingDotThreshold: 0.35

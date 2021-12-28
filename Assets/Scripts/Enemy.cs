@@ -13,7 +13,7 @@ public class Enemy : BaseWaypointAI
     public float visionWaitTime = .5f; // how long between vision updates
     public float visionRadius = .25f; // width of the visibility spherecast
     public float visionDistance = 50; // how far away the player is visible
-    public float detectDistance = 5; // how far away to detect player regardless of fov
+    public float detectDistance = 10; // how far away to detect player regardless of visibility
     public float patrolSpeed = 4;
     public float chaseSpeed = 8;
 
@@ -21,6 +21,7 @@ public class Enemy : BaseWaypointAI
     public float facingDotThreshold = .35f; // lower is a wider field of vision
 
     public bool CanSeePlayer { get; private set; }
+    public bool IsDetectingPlayer { get; private set; } // sensing other than vision
     public Vector3 LastPlayerPosition { get; private set; }
 
     private Coroutine visionLoop;
@@ -47,6 +48,7 @@ public class Enemy : BaseWaypointAI
 
         while (player != null) {
             CanSeePlayer = false;
+            IsDetectingPlayer = false;
             var playerOffset = player.transform.position - this.transform.position;
 
             // first check if the player is close enough to see
@@ -71,8 +73,9 @@ public class Enemy : BaseWaypointAI
                         Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
                     }
 
-                // update very close positions even if no raycast
+                // update very close positions regardless of visibility
                 } else if (dist < detectDistance) {
+                    IsDetectingPlayer = true;
                     LastPlayerPosition = player.transform.position;
                 }
             }
