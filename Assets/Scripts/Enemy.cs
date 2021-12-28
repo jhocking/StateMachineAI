@@ -21,7 +21,7 @@ public class Enemy : BaseWaypointAI
     public float facingDotThreshold = .35f; // lower is a wider field of vision
 
     public bool CanSeePlayer { get; private set; }
-    public Vector3 SeenPlayerPosition { get; private set; }
+    public Vector3 LastPlayerPosition { get; private set; }
 
     private Coroutine visionLoop;
 
@@ -53,29 +53,27 @@ public class Enemy : BaseWaypointAI
             var dist = playerOffset.magnitude;
             if (dist < visionDistance) {
 
-                // then do a raycast if the player is very close
-                bool doRaycast = dist < detectDistance;
-
-                // or use the dot product to see if the player is within the field of view
-                if (!doRaycast) {
-                    var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
-                    doRaycast = dot >= facingDotThreshold;
-                }
+                // then use the dot product to see if the player is within the field of view
+                var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
+                var doRaycast = dot >= facingDotThreshold;
 
                 // only then do a raycast for line of sight
                 if (doRaycast) {
                     if (Physics.SphereCast(transform.position, visionRadius, playerOffset, out var hit)) {
                         if (hit.transform.gameObject == player) {
                             CanSeePlayer = true;
-                            SeenPlayerPosition = player.transform.position;
+                            LastPlayerPosition = player.transform.position;
                         }
                     }
 
                     if (showRuntimeDebug) {
                         var tint = CanSeePlayer ? Color.blue : Color.yellow;
                         Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
-                        // TODO instead of 'transform.forward * 1000' do 'transform.forward * hit.distance'
                     }
+
+                // update very close positions even if no raycast
+                } else if (dist < detectDistance) {
+                    LastPlayerPosition = player.transform.position;
                 }
             }
 
