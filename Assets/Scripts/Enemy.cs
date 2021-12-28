@@ -11,6 +11,8 @@ public class Enemy : BaseWaypointAI
 
     public float idleWaitTime = 2;
     public float visionWaitTime = 1;
+    public float patrolSpeed = 4;
+    public float chaceSpeed = 8;
 
     [Range(0.1f, 0.9f)]
     public float facingDotThreshold = .3f; // lower is a wider field of vision
@@ -27,7 +29,7 @@ public class Enemy : BaseWaypointAI
 
         availableStates = new Dictionary<Type, BaseState>() {
             { typeof(IdleState), currentState},
-            { typeof(PatrolState), new PatrolState(this, waypoints, targetThreshold)}
+            { typeof(PatrolState), new PatrolState(this, waypoints, targetThreshold, patrolSpeed)}
         };
 
         visionLoop = StartCoroutine(VisionCoroutine());

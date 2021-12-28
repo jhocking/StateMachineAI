@@ -14,19 +14,22 @@ public class PatrolState : BaseState
 	private float targetThreshold;
 	private int targetWaypointIndex;
 
-	public PatrolState(Enemy actor, Transform[] waypoints, float targetThreshold) {
+	private float speed;
+
+	public PatrolState(Enemy actor, Transform[] waypoints, float targetThreshold, float speed) {
 		this.actor = actor;
 		agent = actor.GetComponent<NavMeshAgent>();
 
 		this.waypoints = waypoints;
 		this.targetThreshold = targetThreshold;
+		this.speed = speed;
 	}
 
 	public override void OnEnter() {
 		agent.isStopped = false;
-		agent.speed = 4;
-		agent.angularSpeed = 360;
-		agent.acceleration = 8;
+		agent.speed = speed;
+		agent.angularSpeed = 360; // this value is already set on the component
+		agent.acceleration = 8; // this value is already set on the component
 
 		var targetPos = waypoints[targetWaypointIndex].position;
 		agent.SetDestination(targetPos);
