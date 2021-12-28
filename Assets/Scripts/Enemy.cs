@@ -11,6 +11,7 @@ public class Enemy : BaseWaypointAI
 
     public float idleWaitTime = 2;
     public float visionWaitTime = .5f;
+    public float visionRadius = .25f;
     public float patrolSpeed = 4;
     public float chaceSpeed = 8;
 
@@ -50,7 +51,7 @@ public class Enemy : BaseWaypointAI
             if (dot >= facingDotThreshold) {
 
                 // only then do a raycast for line of sight
-                if (Physics.Raycast(transform.position, playerOffset, out var hit)) {
+                if (Physics.SphereCast(transform.position, visionRadius, playerOffset, out var hit)) {
                     if (hit.transform.gameObject == player) {
                         CanSeePlayer = true;
                         SeenPlayerPosition = player.transform.position;
@@ -58,7 +59,7 @@ public class Enemy : BaseWaypointAI
 				}
 
                 if (showRuntimeDebug) {
-                    var tint = CanSeePlayer ? Color.green : Color.white;
+                    var tint = CanSeePlayer ? Color.blue : Color.yellow;
                     Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
                     // TODO instead of 'transform.forward * 1000' do 'transform.forward * hit.distance'
                 }
