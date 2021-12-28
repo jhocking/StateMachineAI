@@ -1,4 +1,6 @@
 # StateMachineAI
+WebGL build at https://jhocking.itch.io/state-machine-ai
+
 This is a demo of a simple AI that uses a state machine and waypoints. Arrow keys move the player, while the enemy behavior is:<br>
 * slowly patrol waypoint path until see player
 * brief pause for guard noticing player, then give chase
