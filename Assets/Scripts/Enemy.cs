@@ -15,7 +15,7 @@ public class Enemy : BaseWaypointAI
     public float chaceSpeed = 8;
 
     [Range(0.1f, 0.9f)]
-    public float facingDotThreshold = .3f; // lower is a wider field of vision
+    public float facingDotThreshold = .35f; // lower is a wider field of vision
 
     public bool CanSeePlayer { get; private set; }
     public Vector3 SeenPlayerPosition { get; private set; }
@@ -48,22 +48,20 @@ public class Enemy : BaseWaypointAI
             // first use the dot product to see if the player is within the field of view
             var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
             if (dot >= facingDotThreshold) {
-                Debug.Log($"facing {dot}");
 
                 // only then do a raycast for line of sight
                 if (Physics.Raycast(transform.position, playerOffset, out var hit)) {
-                    //Debug.Log($"raycast {DateTime.UtcNow}");
                     if (hit.transform.gameObject == player) {
                         CanSeePlayer = true;
                         SeenPlayerPosition = player.transform.position;
                     }
 				}
-            }
 
-            if (showRuntimeDebug) {
-                var tint = CanSeePlayer ? Color.green : Color.white;
-                Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
-                // TODO instead of 'transform.forward * 1000' do 'transform.forward * hit.distance'
+                if (showRuntimeDebug) {
+                    var tint = CanSeePlayer ? Color.green : Color.white;
+                    Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
+                    // TODO instead of 'transform.forward * 1000' do 'transform.forward * hit.distance'
+                }
             }
 
             // pause before checking again, to simulate reaction time
