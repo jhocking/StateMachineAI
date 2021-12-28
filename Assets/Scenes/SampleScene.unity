@@ -765,7 +765,7 @@ MonoBehaviour:
   visionWaitTime: 0.5
   patrolSpeed: 4
   chaceSpeed: 8
-  facingDotThreshold: 0.5
+  facingDotThreshold: 0.3
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

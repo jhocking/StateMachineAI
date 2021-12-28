@@ -43,16 +43,16 @@ public class Enemy : BaseWaypointAI
 
         while (player != null) {
             CanSeePlayer = false;
-            var playerDir = player.transform.position - this.transform.position;
+            var playerOffset = player.transform.position - this.transform.position;
 
             // first use the dot product to see if the player is within the field of view
-            var dot = Vector3.Dot(transform.forward, playerDir);
+            var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
             if (dot >= facingDotThreshold) {
-                //Debug.Log($"facing {DateTime.UtcNow}");
+                Debug.Log($"facing {dot}");
 
                 // only then do a raycast for line of sight
-                if (Physics.Raycast(transform.position, playerDir, out var hit)) {
-                    Debug.Log($"raycast {DateTime.UtcNow}");
+                if (Physics.Raycast(transform.position, playerOffset, out var hit)) {
+                    //Debug.Log($"raycast {DateTime.UtcNow}");
                     if (hit.transform.gameObject == player) {
                         CanSeePlayer = true;
                         SeenPlayerPosition = player.transform.position;
@@ -62,7 +62,7 @@ public class Enemy : BaseWaypointAI
 
             if (showRuntimeDebug) {
                 var tint = CanSeePlayer ? Color.green : Color.white;
-                Debug.DrawRay(transform.position, playerDir, tint, visionWaitTime);
+                Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
                 // TODO instead of 'transform.forward * 1000' do 'transform.forward * hit.distance'
             }
 
