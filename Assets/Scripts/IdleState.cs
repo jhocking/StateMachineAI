@@ -26,7 +26,11 @@ public class IdleState : BaseState {
 
 	public override Type Tick() {
 		if (DateTime.UtcNow.Subtract(startTime).TotalSeconds > waitTime) {
-			return typeof(PatrolState);
+			if (actor.CanSeePlayer) {
+				return typeof(PatrolState); // TODO ChaseState
+			} else {
+				return typeof(PatrolState);
+			}
 		}
 		return null;
 	}

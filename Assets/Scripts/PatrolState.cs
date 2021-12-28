@@ -44,7 +44,7 @@ public class PatrolState : BaseState
 			agent.SetDestination(targetPos);
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (actor.CanSeePlayer) {
 			return typeof(IdleState);
 		}
 		return null;
