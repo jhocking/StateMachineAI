@@ -9,7 +9,7 @@ public class Enemy : BaseWaypointAI
 {
     [SerializeField] GameObject player;
 
-    public float idleWaitTime = 2; // how long to pause in the idle state
+    public float idleWaitTime = 1; // how long to pause in the idle state
     public float visionWaitTime = .5f; // how long between vision updates
     public float visionDistance = 50; // how far away the player is visible
     public float visionRadius = .25f; // width of the visibility spherecast
