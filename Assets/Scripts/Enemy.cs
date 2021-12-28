@@ -11,8 +11,9 @@ public class Enemy : BaseWaypointAI
 
     public float idleWaitTime = 1; // how long to pause in the idle state
     public float visionWaitTime = .5f; // how long between vision updates
-    public float visionDistance = 50; // how far away the player is visible
     public float visionRadius = .25f; // width of the visibility spherecast
+    public float visionDistance = 50; // how far away the player is visible
+    public float detectDistance = 5; // how far away to detect player regardless of fov
     public float patrolSpeed = 4;
     public float chaseSpeed = 8;
 
@@ -48,14 +49,21 @@ public class Enemy : BaseWaypointAI
             CanSeePlayer = false;
             var playerOffset = player.transform.position - this.transform.position;
 
-            // first check if the player is close enough
-            if (playerOffset.magnitude < visionDistance) {
+            // first check if the player is close enough to see
+            var dist = playerOffset.magnitude;
+            if (dist < visionDistance) {
 
-                // then use the dot product to see if the player is within the field of view
-                var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
-                if (dot >= facingDotThreshold) {
+                // then do a raycast if the player is very close
+                bool doRaycast = dist < detectDistance;
 
-                    // only then do a raycast for line of sight
+                // or use the dot product to see if the player is within the field of view
+                if (!doRaycast) {
+                    var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
+                    doRaycast = dot >= facingDotThreshold;
+                }
+
+                // only then do a raycast for line of sight
+                if (doRaycast) {
                     if (Physics.SphereCast(transform.position, visionRadius, playerOffset, out var hit)) {
                         if (hit.transform.gameObject == player) {
                             CanSeePlayer = true;

@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-    public float speed = 10;
+    public float speed = 8;
 
     private CharacterController charController;
 

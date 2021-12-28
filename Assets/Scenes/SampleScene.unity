@@ -763,8 +763,9 @@ MonoBehaviour:
   player: {fileID: 1952155771}
   idleWaitTime: 1
   visionWaitTime: 0.5
-  visionDistance: 50
   visionRadius: 0.25
+  visionDistance: 50
+  detectDistance: 5
   patrolSpeed: 4
   chaseSpeed: 8
   facingDotThreshold: 0.35
@@ -1184,7 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4352c18ead8947b68f7a13992c7ee58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 8
 --- !u!1 &2051875576
 GameObject:
   m_ObjectHideFlags: 0
