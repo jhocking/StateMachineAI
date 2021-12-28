@@ -32,7 +32,7 @@ public class ChaseState : BaseState {
 		agent.SetDestination(actor.SeenPlayerPosition);
 		var targetDist = Vector3.Distance(agent.transform.position, actor.SeenPlayerPosition);
 		if (targetDist < targetThreshold) {
-			if (actor.CanSeePlayer) {
+			if (!actor.CanSeePlayer) {
 				return typeof(IdleState);
 			}
 		}
