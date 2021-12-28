@@ -10,7 +10,7 @@ public class Enemy : BaseWaypointAI
     [SerializeField] GameObject player;
 
     public float idleWaitTime = 2;
-    public float visionWaitTime = 1;
+    public float visionWaitTime = .5f;
     public float patrolSpeed = 4;
     public float chaceSpeed = 8;
 

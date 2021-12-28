@@ -762,7 +762,9 @@ MonoBehaviour:
   showRuntimeDebug: 1
   player: {fileID: 1952155771}
   idleWaitTime: 2
-  visionWaitTime: 1
+  visionWaitTime: 0.5
+  patrolSpeed: 4
+  chaceSpeed: 8
   facingDotThreshold: 0.5
 --- !u!1 &963194225
 GameObject:
