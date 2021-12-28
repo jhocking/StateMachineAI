@@ -14,4 +14,5 @@ resources for first pass:<br>
 later improvements:<br>
 * waypoint editor https://www.youtube.com/watch?v=MXCZ-n5VyJc
 * improved behavior https://www.youtube.com/watch?v=6BrZryMz-ac
-* sensor toolkit https://www.youtube.com/watch?v=37z6hTHuJRI
+* sensor toolkit :30 https://www.youtube.com/watch?v=37z6hTHuJRI
+* follow player breadcrumbs https://www.youtube.com/watch?v=cyvdAYOxnqg
