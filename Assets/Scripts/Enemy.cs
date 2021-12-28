@@ -79,8 +79,12 @@ public class Enemy : BaseWaypointAI
                 }
             }
 
-            // pause before checking again, to simulate reaction time
-            yield return new WaitForSeconds(visionWaitTime);
+            // while patrolling: pause before checking again, to simulate reaction time
+            if (currentState.GetType() == typeof(PatrolState)) {
+                yield return new WaitForSeconds(visionWaitTime);
+            } else {
+                yield return null;
+            }
 		}
 	}
 }
