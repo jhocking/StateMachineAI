@@ -71,7 +71,7 @@ namespace BasicAI {
 				GUI.Box(new Rect(10, 10, 125, 25), CurrentState);
 			}
 		}
-
+#if UNITY_EDITOR
 		protected void OnDrawGizmos() {
 			if (Selection.activeGameObject == this.gameObject) {
 				Gizmos.color = Color.red;
@@ -84,6 +84,7 @@ namespace BasicAI {
 				}
 			}
 		}
+#endif
 	}
 
 }
