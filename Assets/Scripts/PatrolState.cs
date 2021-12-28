@@ -10,11 +10,11 @@ public class PatrolState : BaseState
 	private Enemy actor;
 	private NavMeshAgent agent;
 
-	private Transform[] waypoints;
-	private float targetThreshold;
-	private int targetWaypointIndex;
-
 	private float speed;
+	private float targetThreshold;
+
+	private Transform[] waypoints;
+	private int targetWaypointIndex;
 
 	public PatrolState(Enemy actor, Transform[] waypoints, float targetThreshold, float speed) {
 		this.actor = actor;

@@ -14,7 +14,7 @@ public class Enemy : BaseWaypointAI
     public float visionDistance = 50; // how far away the player is visible
     public float visionRadius = .25f; // width of the visibility spherecast
     public float patrolSpeed = 4;
-    public float chaceSpeed = 8;
+    public float chaseSpeed = 8;
 
     [Range(0.1f, 0.9f)]
     public float facingDotThreshold = .35f; // lower is a wider field of vision
@@ -31,7 +31,8 @@ public class Enemy : BaseWaypointAI
 
         availableStates = new Dictionary<Type, BaseState>() {
             { typeof(IdleState), currentState},
-            { typeof(PatrolState), new PatrolState(this, waypoints, targetThreshold, patrolSpeed)}
+            { typeof(PatrolState), new PatrolState(this, waypoints, targetThreshold, patrolSpeed)},
+            { typeof(ChaseState), new ChaseState(this, targetThreshold, chaseSpeed)}
         };
 
         visionLoop = StartCoroutine(VisionCoroutine());
