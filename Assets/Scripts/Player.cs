@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshObstacle))]
 public class Player : MonoBehaviour
 {
     public float speed = 8;
