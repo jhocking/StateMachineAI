@@ -30,7 +30,7 @@ public class ChaseState : BaseState {
 
 	public override Type Tick() {
 		agent.SetDestination(actor.SeenPlayerPosition);
-		var targetDist = Vector3.Distance(agent.transform.position, actor.SeenPlayerPosition);
+		var targetDist = Vector3.Distance(agent.transform.position, agent.destination);
 		if (targetDist < targetThreshold) {
 			if (!actor.CanSeePlayer) {
 				return typeof(IdleState);
