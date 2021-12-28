@@ -1,5 +1,5 @@
 # StateMachineAI
-This is a demo of a simple AI that uses a state machine and waypoints. The behavior is:<br>
+This is a demo of a simple AI that uses a state machine and waypoints. Arrow keys move the player, while the enemy behavior is:<br>
 * slowly patrol waypoint path until see player
 * brief pause for guard noticing player, then give chase
 * if the player goes around a corner just move to last place seen
