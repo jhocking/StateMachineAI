@@ -43,7 +43,7 @@ public class Enemy : BaseWaypointAI
     private IEnumerator VisionCoroutine() {
 
         // offset so multiple enemies execute on different frames
-        var offset = UnityEngine.Random.value;
+        var offset = UnityEngine.Random.value * visionWaitTime;
         yield return new WaitForSeconds(offset);
 
         while (player != null) {
