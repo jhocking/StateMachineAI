@@ -49,6 +49,8 @@ public class Enemy : BaseWaypointAI
         while (player != null) {
             CanSeePlayer = false;
             IsDetectingPlayer = false;
+            var doWaitTime = currentState.GetType() == typeof(PatrolState);
+
             var playerOffset = player.transform.position - this.transform.position;
 
             // first check if the player is close enough to see
@@ -70,7 +72,11 @@ public class Enemy : BaseWaypointAI
 
                     if (showRuntimeDebug) {
                         var tint = CanSeePlayer ? Color.blue : Color.yellow;
-                        Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
+                        if (doWaitTime) {
+                            Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
+                        } else {
+                            Debug.DrawRay(transform.position, playerOffset, tint);
+                        }
                     }
 
                 // update very close positions regardless of visibility
@@ -81,7 +87,7 @@ public class Enemy : BaseWaypointAI
             }
 
             // while patrolling: pause before checking again, to simulate reaction time
-            if (currentState.GetType() == typeof(PatrolState)) {
+            if (doWaitTime) {
                 yield return new WaitForSeconds(visionWaitTime);
             } else {
                 yield return null;
