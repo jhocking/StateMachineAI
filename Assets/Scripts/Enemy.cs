@@ -13,7 +13,7 @@ public class Enemy : BaseWaypointAI
     public float visionWaitTime = .5f; // how long between vision updates
     public float visionRadius = .25f; // width of the visibility spherecast
     public float visionDistance = 50; // how far away the player is visible
-    public float detectDistance = 10; // how far away to detect player regardless of visibility
+    public float detectDistance = 15; // how far away to detect player regardless of visibility
     public float patrolSpeed = 4;
     public float chaseSpeed = 8;
 
