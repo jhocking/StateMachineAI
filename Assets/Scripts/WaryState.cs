@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using BasicAI;
 
-public class IdleState : BaseState {
+public class WaryState : BaseState {
 	private Enemy actor;
 	private NavMeshAgent agent;
 
 	private DateTime startTime;
 	private float waitTime;
 
-	public IdleState(Enemy actor, float waitTime) {
+	public WaryState(Enemy actor, float waitTime) {
 		this.actor = actor;
 		agent = actor.GetComponent<NavMeshAgent>();
 

@@ -33,7 +33,7 @@ public class ChaseState : BaseState {
 		var targetDist = Vector3.Distance(agent.transform.position, agent.destination);
 		if (targetDist < targetThreshold) {
 			if (!actor.CanSeePlayer && !actor.IsDetectingPlayer) {
-				return typeof(IdleState);
+				return typeof(WaryState);
 			}
 		}
 

@@ -9,7 +9,7 @@ public class Enemy : BaseWaypointAI
 {
     [SerializeField] GameObject player;
 
-    public float idleWaitTime = 1; // how long to pause in the idle state
+    public float waryWaitTime = 1; // how long to pause in the wary state
     public float visionWaitTime = .5f; // how long between vision updates
     public float visionRadius = .25f; // width of the visibility spherecast
     public float visionDistance = 50; // how far away the player is visible
@@ -29,10 +29,10 @@ public class Enemy : BaseWaypointAI
     // Start is called before the first frame update
     protected override void Start()
     {
-        currentState = new IdleState(this, idleWaitTime);
+        currentState = new WaryState(this, waryWaitTime);
 
         availableStates = new Dictionary<Type, BaseState>() {
-            { typeof(IdleState), currentState},
+            { typeof(WaryState), currentState},
             { typeof(PatrolState), new PatrolState(this, waypoints, targetThreshold, patrolSpeed)},
             { typeof(ChaseState), new ChaseState(this, targetThreshold, chaseSpeed)}
         };

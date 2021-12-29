@@ -48,7 +48,7 @@ public class PatrolState : BaseState
 		}
 
 		if (actor.CanSeePlayer) {
-			return typeof(IdleState);
+			return typeof(WaryState);
 		}
 		return null;
 	}
