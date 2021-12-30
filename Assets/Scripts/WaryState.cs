@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 using BasicAI;
 
@@ -9,12 +10,16 @@ public class WaryState : BaseState {
 	private Enemy actor;
 	private NavMeshAgent agent;
 
+	private TextMesh symbol;
+
 	private DateTime startTime;
 	private float waitTime;
 
-	public WaryState(Enemy actor, float waitTime) {
+	public WaryState(Enemy actor, float waitTime, TextMesh symbol) {
 		this.actor = actor;
 		agent = actor.GetComponent<NavMeshAgent>();
+
+		this.symbol = symbol;
 
 		this.waitTime = waitTime;
 	}
@@ -23,7 +28,8 @@ public class WaryState : BaseState {
 		startTime = DateTime.UtcNow;
 		agent.isStopped = true;
 
-		// TODO exclamation point or question mark based on CanSeePlayer
+		symbol.gameObject.SetActive(true);
+		symbol.text = actor.CanSeePlayer ? "!" : "?";
 	}
 
 	public override Type Tick() {
@@ -35,5 +41,9 @@ public class WaryState : BaseState {
 			}
 		}
 		return null;
+	}
+
+	public override void OnExit() {
+		symbol.gameObject.SetActive(false);
 	}
 }

@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using BasicAI;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class Enemy : BaseWaypointAI
 {
     [SerializeField] GameObject player;
+    [SerializeField] TextMesh symbol;
 
     public float waryWaitTime = 1; // how long to pause in the wary state
     public float visionWaitTime = .5f; // how long between vision updates
@@ -29,7 +31,7 @@ public class Enemy : BaseWaypointAI
     // Start is called before the first frame update
     protected override void Start()
     {
-        currentState = new WaryState(this, waryWaitTime);
+        currentState = new WaryState(this, waryWaitTime, symbol);
 
         availableStates = new Dictionary<Type, BaseState>() {
             { typeof(WaryState), currentState},
