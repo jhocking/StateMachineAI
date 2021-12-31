@@ -38,11 +38,7 @@ public class PatrolState : BaseState
 	public override Type Tick() {
 		var targetDist = Vector3.Distance(agent.transform.position, waypoints[targetWaypointIndex].position);
 		if (targetDist < targetThreshold) {
-			targetWaypointIndex++;
-			if (targetWaypointIndex >= waypoints.Length) {
-				targetWaypointIndex = 0;
-			}
-
+			targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
 			var targetPos = waypoints[targetWaypointIndex].position;
 			agent.SetDestination(targetPos);
 		}
