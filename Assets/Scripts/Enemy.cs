@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using BasicAI;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
@@ -94,6 +93,6 @@ public class Enemy : BaseWaypointAI
             } else {
                 yield return null;
             }
-		}
-	}
+        }
+    }
 }
