@@ -13,14 +13,10 @@ public class PatrolState : BaseState
 	private float speed;
 	private float targetThreshold;
 
-	private Transform[] waypoints;
-	private int targetWaypointIndex;
-
-	public PatrolState(Enemy actor, Transform[] waypoints, float targetThreshold, float speed) {
+	public PatrolState(Enemy actor, float targetThreshold, float speed) {
 		this.actor = actor;
 		agent = actor.GetComponent<NavMeshAgent>();
 
-		this.waypoints = waypoints;
 		this.targetThreshold = targetThreshold;
 		this.speed = speed;
 	}
@@ -31,15 +27,14 @@ public class PatrolState : BaseState
 		agent.angularSpeed = 360; // this value is already set on the component
 		agent.acceleration = 8; // this value is already set on the component
 
-		var targetPos = waypoints[targetWaypointIndex].position;
+		var targetPos = actor.GetCurrentWaypoint().position;
 		agent.SetDestination(targetPos);
 	}
 
 	public override Type Tick() {
-		var targetDist = Vector3.Distance(agent.transform.position, waypoints[targetWaypointIndex].position);
+		var targetDist = Vector3.Distance(agent.transform.position, actor.GetCurrentWaypoint().position);
 		if (targetDist < targetThreshold) {
-			targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
-			var targetPos = waypoints[targetWaypointIndex].position;
+			var targetPos = actor.IncrementAndGetWaypoint().position;
 			agent.SetDestination(targetPos);
 		}
 

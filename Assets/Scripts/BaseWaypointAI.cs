@@ -29,7 +29,7 @@ follow player breadcrumbs https://www.youtube.com/watch?v=cyvdAYOxnqg
 namespace BasicAI {
 
 	public abstract class BaseWaypointAI : MonoBehaviour {
-		[SerializeField] protected Transform[] waypoints;
+		[SerializeField] Transform[] waypoints;
 
 		public float targetThreshold = .5f;
 		public bool showRuntimeDebug = false;
@@ -38,6 +38,8 @@ namespace BasicAI {
 
 		protected BaseState currentState;
 		public string CurrentState => currentState?.GetType().Name;
+
+		private int targetWaypointIndex;
 
 		// Start is called before the first frame update
 		protected virtual void Start() {
@@ -65,6 +67,15 @@ namespace BasicAI {
 					currentState.OnEnter();
 				}
 			}
+		}
+
+		public Transform GetCurrentWaypoint() {
+			return waypoints[targetWaypointIndex];
+		}
+
+		public Transform IncrementAndGetWaypoint() {
+			targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
+			return waypoints[targetWaypointIndex];
 		}
 
 		protected void OnGUI() {
