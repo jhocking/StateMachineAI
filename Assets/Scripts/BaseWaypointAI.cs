@@ -87,7 +87,7 @@ namespace BasicAI {
 					waypointIncrement *= -1;
 					targetWaypointIndex += (2 * waypointIncrement);
 				} else {
-					targetWaypointIndex = 0;
+					targetWaypointIndex %= waypoints.Length;
 				}
 			}
 			return waypoints[targetWaypointIndex];
