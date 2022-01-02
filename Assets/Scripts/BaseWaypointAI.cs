@@ -28,9 +28,15 @@ follow player breadcrumbs https://www.youtube.com/watch?v=cyvdAYOxnqg
 
 namespace BasicAI {
 
+	public enum PathType {
+		Loop,
+		Pingpong
+	}
+
 	public abstract class BaseWaypointAI : MonoBehaviour {
 		[SerializeField] Transform[] waypoints;
 
+		public PathType pathType;
 		public float moveTargetThreshold = .5f;
 		public bool showRuntimeDebug = false;
 
@@ -40,6 +46,7 @@ namespace BasicAI {
 		public string CurrentState => currentState?.GetType().Name;
 
 		private int targetWaypointIndex;
+		private int waypointIncrement = 1;
 
 		// Start is called before the first frame update
 		protected virtual void Start() {
@@ -74,7 +81,15 @@ namespace BasicAI {
 		}
 
 		public Transform IncrementAndGetWaypoint() {
-			targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
+			targetWaypointIndex = targetWaypointIndex + waypointIncrement;
+			if (targetWaypointIndex >= waypoints.Length || targetWaypointIndex < 0) {
+				if (pathType == PathType.Pingpong) {
+					waypointIncrement *= -1;
+					targetWaypointIndex += (2 * waypointIncrement);
+				} else {
+					targetWaypointIndex = 0;
+				}
+			}
 			return waypoints[targetWaypointIndex];
 		}
 
