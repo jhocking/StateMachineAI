@@ -34,8 +34,8 @@ public class Enemy : BaseWaypointAI
 
         availableStates = new Dictionary<Type, BaseState>() {
             { typeof(WaryState), currentState},
-            { typeof(PatrolState), new PatrolState(this, targetThreshold, patrolSpeed)},
-            { typeof(ChaseState), new ChaseState(this, targetThreshold, chaseSpeed)}
+            { typeof(PatrolState), new PatrolState(this, moveTargetThreshold, patrolSpeed)},
+            { typeof(ChaseState), new ChaseState(this, moveTargetThreshold, chaseSpeed)}
         };
 
         visionLoop = StartCoroutine(VisionCoroutine());
