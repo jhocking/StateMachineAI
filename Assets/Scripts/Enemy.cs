@@ -5,9 +5,10 @@ using UnityEngine;
 using BasicAI;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-public class Enemy : BaseWaypointAI
-{
-    [SerializeField] GameObject player;
+public class Enemy : BaseWaypointAI {
+    [SerializeField] Transform lookFrom;
+    [SerializeField] Transform lookTo;
+    [SerializeField] GameObject playerObj;
     [SerializeField] TextMesh symbol;
 
     public float waryWaitTime = 1; // how long to pause in the wary state
@@ -28,8 +29,7 @@ public class Enemy : BaseWaypointAI
     private Coroutine visionLoop;
 
     // Start is called before the first frame update
-    protected override void Start()
-    {
+    protected override void Start() {
         currentState = new WaryState(this, waryWaitTime, symbol);
 
         availableStates = new Dictionary<Type, BaseState>() {
@@ -47,43 +47,43 @@ public class Enemy : BaseWaypointAI
         var offset = UnityEngine.Random.value * visionWaitTime;
         yield return new WaitForSeconds(offset);
 
-        while (player != null) {
+        while (lookFrom && playerObj != null) {
             CanSeePlayer = false;
             IsDetectingPlayer = false;
             var doWaitTime = currentState.GetType() == typeof(PatrolState);
 
-            var playerOffset = player.transform.position - this.transform.position;
+            var playerOffset = lookTo.position - lookFrom.position;
 
             // first check if the player is close enough to see
             var dist = playerOffset.magnitude;
             if (dist < visionDistance) {
 
                 // then use the dot product to see if the player is within the field of view
-                var dot = Vector3.Dot(transform.forward, playerOffset.normalized);
+                var dot = Vector3.Dot(lookFrom.forward, playerOffset.normalized);
                 var doRaycast = dot >= facingDotThreshold;
 
                 // only then do a raycast for line of sight
                 if (doRaycast) {
-                    if (Physics.SphereCast(transform.position, visionRadius, playerOffset, out var hit)) {
-                        if (hit.transform.gameObject == player) {
+                    if (Physics.SphereCast(lookFrom.position, visionRadius, playerOffset, out var hit)) {
+                        if (hit.transform.gameObject == playerObj) {
                             CanSeePlayer = true;
-                            LastPlayerPosition = player.transform.position;
+                            LastPlayerPosition = playerObj.transform.position;
                         }
                     }
 
                     if (showRuntimeDebug) {
                         var tint = CanSeePlayer ? Color.blue : Color.yellow;
                         if (doWaitTime) {
-                            Debug.DrawRay(transform.position, playerOffset, tint, visionWaitTime);
+                            Debug.DrawRay(lookFrom.position, playerOffset, tint, visionWaitTime);
                         } else {
-                            Debug.DrawRay(transform.position, playerOffset, tint);
+                            Debug.DrawRay(lookFrom.position, playerOffset, tint);
                         }
                     }
 
-                // update very close positions regardless of visibility
+                    // update very close positions regardless of visibility
                 } else if (dist < detectDistance) {
                     IsDetectingPlayer = true;
-                    LastPlayerPosition = player.transform.position;
+                    LastPlayerPosition = playerObj.transform.position;
                 }
             }
 
