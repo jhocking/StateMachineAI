@@ -6,10 +6,12 @@ using BasicAI;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class Enemy : BaseWaypointAI {
-    [SerializeField] Transform lookFrom;
-    [SerializeField] Transform lookTo;
+    [SerializeField] Transform lookFrom; // head of enemy skeleton
+    [SerializeField] Transform lookTo; // chest of player skeleton
     [SerializeField] GameObject playerObj;
+
     [SerializeField] TextMesh symbol;
+    // TODO make a field for the Animator to pass to AI states
 
     public float waryWaitTime = 1; // how long to pause in the wary state
     public float visionWaitTime = .5f; // how long between vision updates
