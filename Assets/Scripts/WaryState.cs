@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 using BasicAI;
 
 public class WaryState : BaseState {
 	private Enemy actor;
 	private NavMeshAgent agent;
 
-	private TextMesh symbol;
+	private TMP_Text symbol;
 
 	private DateTime startTime;
 	private float waitTime;
 
-	public WaryState(Enemy actor, float waitTime, TextMesh symbol) {
+	public WaryState(Enemy actor, float waitTime, TMP_Text symbol) {
 		this.actor = actor;
 		agent = actor.GetComponent<NavMeshAgent>();
 

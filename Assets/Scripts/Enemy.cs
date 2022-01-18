@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using BasicAI;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
@@ -10,7 +11,8 @@ public class Enemy : BaseWaypointAI {
     [SerializeField] Transform lookTo; // chest of player skeleton
     [SerializeField] GameObject playerObj;
 
-    [SerializeField] TextMesh symbol;
+    [SerializeField] Transform camTransform; // to orient the symbol toward the camera
+    [SerializeField] TMP_Text symbol;
     // TODO make a field for the Animator to pass to AI states
 
     public float waryWaitTime = 1; // how long to pause in the wary state
@@ -30,7 +32,6 @@ public class Enemy : BaseWaypointAI {
 
     private Coroutine visionLoop;
 
-    // Start is called before the first frame update
     protected override void Start() {
         currentState = new WaryState(this, waryWaitTime, symbol);
 
@@ -40,7 +41,15 @@ public class Enemy : BaseWaypointAI {
             { typeof(ChaseState), new ChaseState(this, moveTargetThreshold, chaseSpeed)}
         };
 
+        // vision code is a coroutine instead of running from Update
+        // so that it won't necessarily run every frame
         visionLoop = StartCoroutine(VisionCoroutine());
+    }
+
+    protected override void Update() {
+        symbol.transform.rotation = Quaternion.Euler(0, camTransform.eulerAngles.y, 0);
+
+        base.Update();
     }
 
     private IEnumerator VisionCoroutine() {
