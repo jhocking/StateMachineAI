@@ -45,6 +45,7 @@ namespace BasicAI {
 		protected BaseState currentState;
 		public string CurrentState => currentState?.GetType().Name;
 
+		protected bool doTick = true; // to pause updates
 		private int targetWaypointIndex;
 		private int waypointIncrement = 1;
 
@@ -62,6 +63,7 @@ namespace BasicAI {
 				Debug.LogError($"State machine not initialized for {this.name}");
 				return;
 			}
+			if (!doTick) { return; }
 			var stateType = currentState.Tick();
 
 			if (stateType != null && stateType != currentState.GetType()) {
