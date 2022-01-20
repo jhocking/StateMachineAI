@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using TMPro;
 using BasicAI;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : BaseWaypointAI {
     [SerializeField] Transform lookFrom; // head of enemy skeleton
     [SerializeField] Transform lookTo; // chest of player skeleton
@@ -32,7 +33,11 @@ public class Enemy : BaseWaypointAI {
 
     private Coroutine visionLoop;
 
+    public NavMeshAgent Agent { get; private set; }
+
     protected override void Start() {
+        Agent = GetComponent<NavMeshAgent>();
+
         currentState = new WaryState(this, waryWaitTime, symbol);
 
         availableStates = new Dictionary<Type, BaseState>() {

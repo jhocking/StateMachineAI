@@ -2,13 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using TMPro;
 using BasicAI;
 
 public class WaryState : BaseState {
 	private Enemy actor;
-	private NavMeshAgent agent;
 
 	private TMP_Text symbol;
 
@@ -17,8 +15,6 @@ public class WaryState : BaseState {
 
 	public WaryState(Enemy actor, float waitTime, TMP_Text symbol) {
 		this.actor = actor;
-		agent = actor.GetComponent<NavMeshAgent>();
-
 		this.symbol = symbol;
 
 		this.waitTime = waitTime;
@@ -26,7 +22,7 @@ public class WaryState : BaseState {
 
 	public override void OnEnter() {
 		startTime = DateTime.UtcNow;
-		agent.isStopped = true;
+		actor.Agent.isStopped = true;
 
 		symbol.gameObject.SetActive(true);
 		symbol.text = actor.CanSeePlayer ? "!" : "?";
