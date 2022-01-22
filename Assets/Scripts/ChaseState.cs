@@ -28,7 +28,9 @@ public class ChaseState : BaseState {
 
 	public override Type Tick() {
 		var agent = actor.Agent;
-		agent.SetDestination(actor.LastPlayerPosition);
+		if (UnityEngine.Random.value < .4) { // just so it isn't pathfinding EVERY frame
+			agent.SetDestination(actor.LastPlayerPosition);
+		}
 		var targetDist = Vector3.Distance(agent.transform.position, agent.destination);
 		if (targetDist < targetThreshold) {
 			if (!actor.CanSeePlayer && !actor.IsDetectingPlayer) {
