@@ -78,6 +78,11 @@ namespace BasicAI {
 			}
 		}
 
+		// to provide the path in code, instead of serialized in editor
+		public void AssignWaypoints(Transform[] waypoints) {
+			this.waypoints = waypoints;
+		}
+
 		public Transform GetCurrentWaypoint() {
 			return waypoints[targetWaypointIndex];
 		}
