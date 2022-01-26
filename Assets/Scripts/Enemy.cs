@@ -95,9 +95,10 @@ public class Enemy : BaseWaypointAI {
                             Debug.DrawRay(lookFrom.position, playerOffset, tint);
                         }
                     }
+                }
 
-                    // update very close positions regardless of visibility
-                } else if (dist < detectDistance) {
+                // detect very close players regardless of visibility (eg. can hear)
+                if (dist < detectDistance) {
                     IsDetectingPlayer = true;
                     LastPlayerPosition = playerObj.transform.position;
                 }

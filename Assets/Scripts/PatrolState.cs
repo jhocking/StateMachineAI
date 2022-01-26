@@ -37,6 +37,7 @@ public class PatrolState : BaseState
 			agent.SetDestination(targetPos);
 		}
 
+		// don't pay attention to noises in low alert state, only vision
 		if (actor.CanSeePlayer) {
 			return typeof(WaryState);
 		}
