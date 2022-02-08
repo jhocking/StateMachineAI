@@ -29,7 +29,8 @@ public class WaryState : BaseState {
 	}
 
 	public override Type Tick() {
-		if (DateTime.UtcNow.Subtract(startTime).TotalSeconds > waitTime) {
+		var elapsed = DateTime.UtcNow.Subtract(startTime).TotalSeconds;
+		if (elapsed > waitTime) {
 			if (actor.CanSeePlayer || actor.IsDetectingPlayer) {
 				return typeof(ChaseState);
 			} else {
