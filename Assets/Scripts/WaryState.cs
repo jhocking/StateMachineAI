@@ -6,12 +6,12 @@ using TMPro;
 using BasicAI;
 
 public class WaryState : BaseState {
-	private Enemy actor;
+	private readonly Enemy actor;
+	private readonly TMP_Text symbol;
 
-	private TMP_Text symbol;
+	private readonly float waitTime;
 
 	private DateTime startTime;
-	private float waitTime;
 
 	public WaryState(Enemy actor, float waitTime, TMP_Text symbol) {
 		this.actor = actor;

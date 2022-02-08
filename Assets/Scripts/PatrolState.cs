@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using BasicAI;
 
-public class PatrolState : BaseState
-{
-	private Enemy actor;
+public class PatrolState : BaseState {
+	private readonly Enemy actor;
 
-	private float speed;
-	private float targetThreshold;
+	private readonly float speed;
+	private readonly float targetThreshold;
 
 	public PatrolState(Enemy actor, float targetThreshold, float speed) {
 		this.actor = actor;

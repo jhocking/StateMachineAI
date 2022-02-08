@@ -5,11 +5,10 @@ using UnityEngine;
 using BasicAI;
 
 public class ChaseState : BaseState {
+	private readonly Enemy actor;
 
-    private Enemy actor;
-
-	private float speed;
-	private float targetThreshold;
+	private readonly float speed;
+	private readonly float targetThreshold;
 
 	public ChaseState(Enemy actor, float targetThreshold, float speed) {
 		this.actor = actor;
