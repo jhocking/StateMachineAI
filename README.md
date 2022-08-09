@@ -14,6 +14,7 @@ resources for first pass:<br>
 * https://www.raywenderlich.com/16977649-pathfinding-with-navmesh-getting-started
 
 later improvements:<br>
+* more reliable path progress https://mobile.twitter.com/eriknordeus/status/1546807619247013889
 * waypoint editor https://www.youtube.com/watch?v=MXCZ-n5VyJc
 * improved behavior https://www.youtube.com/watch?v=6BrZryMz-ac
 * multiple agents https://www.youtube.com/watch?v=qzkOslgzuzo
